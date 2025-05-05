@@ -1,16 +1,15 @@
-from setuptools import find_packages,setup
+from setuptools import find_packages, setup
 from typing import List
 
-HYPEN_E_DOT='-e .'
+HYPEN_E_DOT = '-e .'
 
-def get_requirements(file_path:str)->List[str]:
+def get_requirements(file_path: str) -> List[str]:
     '''
-    this function will return the list of requirements
+    Returns a list of required packages listed in the given file.
     '''
-
-    with open(file_path) as file_obj:
-        requirements=file_obj.readlines()
-        requirements=[req.replace('\n',"") for req in requirements]
+    with open(file_path, 'r') as file_obj:
+        requirements = file_obj.readlines()
+        requirements = [req.strip() for req in requirements if req.strip()]  # Removes \n and empty lines
 
         if HYPEN_E_DOT in requirements:
             requirements.remove(HYPEN_E_DOT)
@@ -18,10 +17,10 @@ def get_requirements(file_path:str)->List[str]:
     return requirements
 
 setup(
-name='mlproject',
-version='0.0.1',
-author='Anurag_kumar',
-author_email='anu130896@gmail.com',
-packages=find_packages(),
-install_requires=get_requirements('requirements.txt')
+    name='mlproject',
+    version='0.0.1',
+    author='Anurag Kumar',
+    author_email='anu130896@gmail.com',
+    packages=find_packages(),
+    install_requires=get_requirements('requirements.txt')
 )
